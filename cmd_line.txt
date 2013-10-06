@@ -1,0 +1,13 @@
+# for Windows
+
+set PYTHONPATH=%PYTHONPATH%;.
+set THEANO_FLAGS=device=cpu
+train.py adult.yaml
+predict.py softmax_regression_best.pkl adult\test.csv predictions.txt
+
+# for Unix (untested)
+
+export PYTHONPATH=$PYTHONPATH%:.
+export THEANO_FLAGS=device=cpu
+train.py adult.yaml
+python predict.py softmax_regression_best.pkl adult/test.csv predictions.txt

@@ -1,0 +1,43 @@
+!obj:pylearn2.train.Train {
+    dataset: &train !obj:adult_dataset.AdultDataset {
+        path: 'adult/train_v.csv',
+        one_hot: 1
+    },
+    
+    model: !obj:pylearn2.models.softmax_regression.SoftmaxRegression {
+        n_classes: 2,
+        irange: 0.,
+        nvis: 123,
+    },
+
+    algorithm: !obj:pylearn2.training_algorithms.bgd.BGD {
+        batch_size: 10000,
+        line_search_mode: 'exhaustive',
+        conjugate: 1,
+        monitoring_dataset:
+            {
+                'train' : *train,
+                'valid' : !obj:adult_dataset.AdultDataset {
+                              path: 'adult/test_v.csv',
+                              one_hot: 1
+                },
+                'test'  : !obj:adult_dataset.AdultDataset {
+                              path: 'adult/test.csv',
+                              one_hot: 1
+                }
+            },
+        termination_criterion: !obj:pylearn2.termination_criteria.MonitorBased {
+            channel_name: "valid_y_misclass"
+        }
+    },
+    
+    extensions: [
+        !obj:pylearn2.train_extensions.best_params.MonitorBasedSaveBest {
+             channel_name: 'valid_y_misclass',
+             save_path: "softmax_regression_best.pkl"
+        },
+    ],
+    save_path: "softmax_regression.pkl",
+    save_freq: 1
+    
+}
