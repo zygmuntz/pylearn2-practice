@@ -12,7 +12,7 @@ Here are the commands to execute for Windows:
 	
 And for Unix (untested):
 
-	export PYTHONPATH=$PYTHONPATH%:.
+	export PYTHONPATH=$PYTHONPATH:.
 	export THEANO_FLAGS=device=cpu
 	train.py adult.yaml
 	python predict.py softmax_regression_best.pkl adult/test.csv predictions.txt
