@@ -8,7 +8,7 @@ Here are the commands to execute for Windows:
 	set PYTHONPATH=%PYTHONPATH%;.
 	set THEANO_FLAGS=device=cpu
 	train.py adult.yaml
-	predict.py softmax_regression_best.pkl adult\test.csv predictions.txt
+	python predict.py softmax_regression_best.pkl adult\test.csv predictions.txt
 	
 And for Unix (untested):
 
